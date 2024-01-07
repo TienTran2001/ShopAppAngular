@@ -1,10 +1,8 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrl: './app.component.scss'
+    selector: 'app-app',
+    template: ` <router-outlet></router-outlet> `,
+    styles: [],
 })
-export class AppComponent {
-  title = 'shopapp_angular';
-}
+export class AppComponent {}
