@@ -11,6 +11,11 @@ import { Router } from '@angular/router';
 })
 export class DashboardComponent {
     userResponse?: UserResponse | null;
+    page = 'Trang chủ';
+    menuBar = [
+        { name: 'Trang chủ', link: '/dashboard/', icon: '' },
+        { name: 'Sản phẩm', link: '/dashboard/products', icon: '' },
+    ];
 
     constructor(
         private router: Router,
@@ -26,5 +31,14 @@ export class DashboardComponent {
         this.tokenService.removeToken();
         this.userService.removeUserFromLocalStorage();
         this.router.navigate(['/home']);
+    }
+
+    handleLoginButton() {
+        this.router.navigate(['/login']);
+    }
+
+    routerNavigate(item: any) {
+        this.router.navigate([item.link]);
+        this.page = item.name;
     }
 }

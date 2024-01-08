@@ -1,133 +1,131 @@
-<!-- Header -->
-<header class="bg-white shadow-lg flex justify-between items-center p-4">
-    <div class="">
-        <h1 class="text-2xl font-semibold text-gray-800">Admin Dashboard</h1>
-    </div>
-    <ng-container *ngIf="userResponse">
-        <div>
-            <span class="font-bold">Hello {{ userResponse.fullname }}</span>
-            <span class="ml-2 cursor-pointer" (click)="handleLogout()"
-                >Đăng xuất</span
-            >
-        </div>
-    </ng-container>
-    <ng-container *ngIf="!userResponse">
-        <a rel="/home" class="font-bold">Đăng nhập</a>
-    </ng-container>
-</header>
-
-<!-- Main Content -->
-<div class="container mx-auto mt-8 p-4 h-[1500px]">
-    <div class="grid grid-cols-12 gap-4">
-        <!-- Side Menu -->
-        <div class="col-span-3">
-            <aside class="bg-gray-800 text-white p-4 rounded-lg h-full">
-                <ul>
-                    <li class="mb-2">
-                        <a href="#" class="hover:text-gray-300">Dashboard</a>
-                    </li>
-                    <li class="mb-2">
-                        <a href="#" class="hover:text-gray-300">Users</a>
-                    </li>
-                    <li class="mb-2">
-                        <a href="#" class="hover:text-gray-300">Products</a>
-                    </li>
-                    <!-- Thêm các liên kết cho các trang khác nếu cần -->
-                </ul>
-            </aside>
-        </div>
-
-        <!-- Main Content -->
-        <div class="col-span-9">
-            <div class="bg-white p-4 shadow rounded-lg">
-                <h2 class="text-xl font-semibold mb-4">Dashboard Overview</h2>
-                <div
-                    class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"
+<div class="min-h-screen bg-[#eceff180] text-[#263238]">
+    <aside
+        class="bg-white shadow-sm -translate-x-80 fixed z-50 my-4 ml-4 h-[calc(100vh-32px)] w-72 rounded-xl transition-transform duration-300 xl:translate-x-0 border border-[#cfd8dc]"
+    >
+        <div class="relative">
+            <a class="py-6 px-8 text-center">
+                <h6
+                    class="block font-sans antialiased tracking-normal text-base font-semibold leading-relaxed text-[#263238]"
                 >
-                    <!-- Total Users -->
-                    <div
-                        class="bg-gradient-to-r from-blue-500 to-blue-700 text-white p-6 rounded-lg shadow-md"
-                    >
-                        <div class="flex items-center">
-                            <div class="flex-shrink-0">
+                    ShopApp
+                </h6>
+            </a>
+            <div class="m-4">
+                <ul class="mb-4 flex flex-col gap-1">
+                    <li *ngFor="let item of menuBar">
+                        <a
+                            aria-current="page"
+                            class="active"
+                            (click)="routerNavigate(item)"
+                            ><button
+                                class="align-middle select-none font-sans font-bold text-center transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none text-xs py-3 rounded-lg bg-gradient-to-tr from-gray-900 to-gray-800 text-white shadow-md shadow-gray-900/10 hover:shadow-lg hover:shadow-gray-900/20 active:opacity-[0.85] w-full flex items-center gap-4 px-4 capitalize"
+                                type="button"
+                            >
                                 <svg
-                                    class="h-8 w-8"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    viewBox="0 0 24 24"
                                     fill="currentColor"
-                                    viewBox="0 0 20 20"
+                                    aria-hidden="true"
+                                    class="w-5 h-5 text-inherit"
                                 >
                                     <path
-                                        d="M10 12a2 2 0 100-4 2 2 0 000 4z"
+                                        d="M11.47 3.84a.75.75 0 011.06 0l8.69 8.69a.75.75 0 101.06-1.06l-8.689-8.69a2.25 2.25 0 00-3.182 0l-8.69 8.69a.75.75 0 001.061 1.06l8.69-8.69z"
                                     ></path>
                                     <path
-                                        fill-rule="evenodd"
-                                        d="M0 10a10 10 0 1120 0 10 10 0 01-20 0zm13-2a2 2 0 11-4 0 2 2 0 014 0zM5 10a2 2 0 100-4 2 2 0 000 4z"
-                                        clip-rule="evenodd"
+                                        d="M12 5.432l8.159 8.159c.03.03.06.058.091.086v6.198c0 1.035-.84 1.875-1.875 1.875H15a.75.75 0 01-.75-.75v-4.5a.75.75 0 00-.75-.75h-3a.75.75 0 00-.75.75V21a.75.75 0 01-.75.75H5.625a1.875 1.875 0 01-1.875-1.875v-6.198a2.29 2.29 0 00.091-.086L12 5.43z"
                                     ></path>
                                 </svg>
-                            </div>
-                            <div class="ml-4">
-                                <p class="text-lg font-semibold">Total Users</p>
-                                <p class="text-2xl">150</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Total Products -->
-                    <div
-                        class="bg-gradient-to-r from-green-500 to-green-700 text-white p-6 rounded-lg shadow-md"
-                    >
-                        <div class="flex items-center">
-                            <div class="flex-shrink-0">
-                                <svg
-                                    class="h-8 w-8"
-                                    fill="currentColor"
-                                    viewBox="0 0 20 20"
+                                <p
+                                    class="block antialiased font-sans text-base leading-relaxed text-inherit font-medium capitalize"
                                 >
-                                    <path
-                                        d="M10 12a2 2 0 100-4 2 2 0 000 4z"
-                                    ></path>
-                                    <path
-                                        fill-rule="evenodd"
-                                        d="M0 10a10 10 0 1120 0 10 10 0 01-20 0zm13-2a2 2 0 11-4 0 2 2 0 014 0zM5 10a2 2 0 100-4 2 2 0 000 4z"
-                                        clip-rule="evenodd"
-                                    ></path>
-                                </svg>
-                            </div>
-                            <div class="ml-4">
-                                <p class="text-lg font-semibold">
-                                    Total Products
+                                    {{ item.name }}
                                 </p>
-                                <p class="text-2xl">50</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Revenue -->
-                    <div
-                        class="bg-gradient-to-r from-purple-500 to-purple-700 text-white p-6 rounded-lg shadow-md"
+                            </button></a
+                        >
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </aside>
+    <!-- body -->
+    <div class="p-4 xl:ml-80">
+        <!-- header -->
+        <nav
+            class="block w-full max-w-full bg-transparent shadow-none rounded-xl transition-all px-0 py-1"
+        >
+            <div
+                class="flex flex-col-reverse justify-between gap-6 md:flex-row md:items-center"
+            >
+                <div>
+                    <p class="text-sm text-[#607d8b]">
+                        Dashboard /
+                        <span class="text-[#263238] font-semibold" *ngIf="">{{
+                            page
+                        }}</span>
+                    </p>
+                    <h5
+                        class="block antialiased tracking-normal font-sans text-base font-bold leading-relaxed text-[#263238]"
                     >
-                        <div class="flex items-center">
-                            <div class="flex-shrink-0">
-                                <svg
-                                    class="h-8 w-8"
-                                    fill="currentColor"
-                                    viewBox="0 0 20 20"
-                                >
-                                    <path
-                                        fill-rule="evenodd"
-                                        d="M10 0a10 10 0 100 20 10 10 0 000-20zm0 18a8 8 0 100-16 8 8 0 000 16zm-1.25-9.547a4 4 0 014.94-4.94l-4.94 4.94zM10 15a5 5 0 100-10 5 5 0 000 10z"
-                                        clip-rule="evenodd"
-                                    ></path>
-                                </svg>
-                            </div>
-                            <div class="ml-4">
-                                <p class="text-lg font-semibold">Revenue</p>
-                                <p class="text-2xl">$10,000</p>
-                            </div>
+                        {{ page }}
+                    </h5>
+                </div>
+                <div class="flex items-center">
+                    <div class="mr-auto md:mr-4 md:w-56">
+                        <div class="relative w-full min-w-[200px] h-10">
+                            <input
+                                class="w-full h-full bg-transparent text-[#263238] font-sans font-normal transition-all border border-[#b0bec5] focus:border-2 focus:border-t-transparent text-sm px-3 py-2.5 rounded-[7px] border-blue-gray-200 focus:border-gray-900"
+                                placeholder="Tìm kiếm..."
+                            />
                         </div>
                     </div>
+                    <button *ngIf="!userResponse" (click)="handleLoginButton()">
+                        Đăng nhập
+                    </button>
+                    <ng-container *ngIf="userResponse">
+                        <h4
+                            class="flex items-center hover:bg-[#607d8b1a] transition-all rounded-lg p-2 text-[#607d8b]"
+                        >
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                viewBox="0 0 24 24"
+                                fill="currentColor"
+                                class="w-5 h-5"
+                            >
+                                <path
+                                    fill-rule="evenodd"
+                                    d="M7.5 6a4.5 4.5 0 1 1 9 0 4.5 4.5 0 0 1-9 0ZM3.751 20.105a8.25 8.25 0 0 1 16.498 0 .75.75 0 0 1-.437.695A18.683 18.683 0 0 1 12 22.5c-2.786 0-5.433-.608-7.812-1.7a.75.75 0 0 1-.437-.695Z"
+                                    clip-rule="evenodd"
+                                />
+                            </svg>
+
+                            <span class="ml-1 font-semibold">{{
+                                userResponse.fullname
+                            }}</span>
+                        </h4>
+                        <button
+                            (click)="handleLogout()"
+                            class="ml-2 hover:bg-[#607d8b1a] transition-all rounded-lg p-2 text-[#607d8b]"
+                        >
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                viewBox="0 0 24 24"
+                                fill="currentColor"
+                                class="w-5 h-5 font-semibold transform rotate-90"
+                            >
+                                <path
+                                    fill-rule="evenodd"
+                                    d="M11.47 2.47a.75.75 0 0 1 1.06 0l4.5 4.5a.75.75 0 0 1-1.06 1.06l-3.22-3.22V16.5a.75.75 0 0 1-1.5 0V4.81L8.03 8.03a.75.75 0 0 1-1.06-1.06l4.5-4.5ZM3 15.75a.75.75 0 0 1 .75.75v2.25a1.5 1.5 0 0 0 1.5 1.5h13.5a1.5 1.5 0 0 0 1.5-1.5V16.5a.75.75 0 0 1 1.5 0v2.25a3 3 0 0 1-3 3H5.25a3 3 0 0 1-3-3V16.5a.75.75 0 0 1 .75-.75Z"
+                                    clip-rule="evenodd"
+                                />
+                            </svg>
+                        </button>
+                    </ng-container>
                 </div>
             </div>
+        </nav>
+        <!-- content -->
+        <div class="mt-12">
+            <router-outlet></router-outlet>
         </div>
     </div>
 </div>

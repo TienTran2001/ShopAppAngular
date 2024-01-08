@@ -4,17 +4,29 @@ import { HomeComponent } from './home/home.component';
 import { HeaderComponent } from './components/header/header.component';
 import { LoginComponent } from './components/login/login.component';
 import { RouterModule, Routes } from '@angular/router';
+import { NgxPaginationModule } from 'ngx-pagination';
 import { AppComponent } from './app.component';
 import { DashboardComponent } from './admin/dashboard.component';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { TokenInterceptor } from './interceptors/token.interceptor';
+import { ProductsComponent } from './admin/components/products/products.component';
+import { ProductsComponent as ProductsDashboardComponent } from './admin/components/products/products.component';
 
 const routes: Routes = [
     { path: '', redirectTo: '/home', pathMatch: 'full' },
     { path: 'home', component: HomeComponent },
     { path: 'login', component: LoginComponent },
-    { path: 'dashboard', component: DashboardComponent },
+    {
+        path: 'dashboard',
+        component: DashboardComponent,
+        children: [
+            {
+                path: 'products',
+                component: ProductsDashboardComponent,
+            },
+        ],
+    },
 ];
 @NgModule({
     declarations: [
@@ -23,12 +35,15 @@ const routes: Routes = [
         LoginComponent,
         AppComponent,
         DashboardComponent,
+        ProductsComponent,
+        ProductsDashboardComponent,
     ],
     imports: [
         BrowserModule,
         RouterModule.forRoot(routes),
         FormsModule,
         HttpClientModule,
+        NgxPaginationModule,
     ],
     providers: [
         {

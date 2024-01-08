@@ -3,25 +3,28 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { LoginDTO } from '../dtos/login.dto';
 import { UserResponse } from '../responses/user.response';
 import { Observable } from 'rxjs';
+import { environment } from '../../environment/environment';
 
 @Injectable({
     providedIn: 'root',
 })
 export class UserService {
-    private apiUrl: string = 'http://localhost:8088/api/v1/users';
+    // private apiUrl: string = 'http://localhost:8088/api/v1/users';
+    private apiLogin: string = `${environment.apiBaseUrl}/users/login`;
+    private apiUserDetail: string = `${environment.apiBaseUrl}/users/details`;
 
     constructor(private http: HttpClient) {}
 
     login(loginData: LoginDTO): Observable<any> {
         const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
 
-        return this.http.post(`${this.apiUrl}/login`, loginData, {
+        return this.http.post(this.apiLogin, loginData, {
             headers: headers,
         });
     }
 
     getDetail(): Observable<any> {
-        return this.http.post(`${this.apiUrl}/details`, {
+        return this.http.post(this.apiUserDetail, {
             headers: new HttpHeaders({
                 'Content-Type': 'application/json',
             }),
