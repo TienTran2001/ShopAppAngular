@@ -27,6 +27,17 @@ export class ProductService {
             headers,
         });
     }
+    getProduct(id: number): Observable<any> {
+        return this.http.get(`${this.apiBaseUrl}/products/${id}`);
+    }
+
+    updateProduct(id: number, productDTO: productDTO): Observable<any> {
+        const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+
+        return this.http.put(`${this.apiBaseUrl}/products/${id}`, productDTO, {
+            headers,
+        });
+    }
 
     deleteProduct(id: number): Observable<string> {
         return this.http.delete<string>(`${this.apiBaseUrl}/products/${id}`);

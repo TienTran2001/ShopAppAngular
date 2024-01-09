@@ -56,7 +56,9 @@
                 <td class="px-6 py-4">{{ product.price }}đ</td>
                 <td class="px-6 py-4">{{ product.thumbnail }}</td>
                 <td class="px-6 py-4 flex items-center justify-center gap-x-2">
+                    <!-- update button product -->
                     <button
+                        (click)="goToEditProduct(product.id)"
                         class="flex items-center hover:bg-[#607d8b1a] transition-all rounded-lg p-2 text-[#607d8b]"
                     >
                         <svg
@@ -73,7 +75,7 @@
                             />
                         </svg>
                     </button>
-                    <!-- delete -->
+                    <!-- delete product button -->
                     <button
                         (click)="handleDelete(product.id, product.name)"
                         class="flex items-center hover:bg-[#607d8b1a] transition-all rounded-lg p-2 text-[#607d8b]"

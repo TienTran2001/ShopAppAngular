@@ -13,6 +13,7 @@ import { TokenInterceptor } from './interceptors/token.interceptor';
 import { ProductsComponent } from './admin/components/products/products.component';
 import { ProductsComponent as ProductsDashboardComponent } from './admin/components/products/products.component';
 import { AddProductComponent } from './admin/components/add-product/add-product.component';
+import { UpdateProductComponent } from './admin/components/update-product/update-product.component';
 
 const routes: Routes = [
     { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -30,6 +31,10 @@ const routes: Routes = [
                 path: 'add-product',
                 component: AddProductComponent,
             },
+            {
+                path: 'edit-product/:id',
+                component: UpdateProductComponent,
+            },
         ],
     },
 ];
@@ -43,6 +48,7 @@ const routes: Routes = [
         ProductsComponent,
         ProductsDashboardComponent,
         AddProductComponent,
+        UpdateProductComponent,
     ],
     imports: [
         BrowserModule,

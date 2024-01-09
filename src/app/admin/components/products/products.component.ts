@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { ProductService } from '../../../services/product.service';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'app-products',
@@ -7,13 +8,16 @@ import { ProductService } from '../../../services/product.service';
     styles: [],
 })
 export class ProductsComponent {
-    products: any;
+    products: [] | any;
     page: number = 1;
     inputPage: number = 1;
     limit: number = 8;
     totalPage: number = 0;
 
-    constructor(private productService: ProductService) {}
+    constructor(
+        private productService: ProductService,
+        private router: Router
+    ) {}
 
     ngOnInit() {
         this.getAllProducts();
@@ -36,6 +40,9 @@ export class ProductsComponent {
 
     handleInputPage() {
         console.log(this.inputPage);
+    }
+    goToEditProduct(id: string) {
+        this.router.navigate(['/dashboard/edit-product', id]);
     }
 
     handleDelete(id: number, name: string) {

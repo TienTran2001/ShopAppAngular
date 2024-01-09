@@ -47,6 +47,7 @@ export class AddProductComponent {
         const productDTO: productDTO = {
             name: this.nameProduct,
             price: this.price,
+            thumbnail: '',
             description: this.descriptions,
             category_id: this.category,
         };
