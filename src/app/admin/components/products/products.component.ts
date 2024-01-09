@@ -16,6 +16,11 @@ export class ProductsComponent {
     constructor(private productService: ProductService) {}
 
     ngOnInit() {
+        this.getAllProducts();
+    }
+
+    getAllProducts() {
+        console.log('vao ne');
         this.productService.getProducts(this.page - 1, this.limit).subscribe({
             next: (response: any) => {
                 this.products = response.products;
@@ -31,6 +36,23 @@ export class ProductsComponent {
 
     handleInputPage() {
         console.log(this.inputPage);
+    }
+
+    handleDelete(id: number, name: string) {
+        const isConfirmed = window.confirm(`Bạn có chắc muốn xóa ${name} ?`);
+        if (isConfirmed) {
+            this.productService.deleteProduct(id).subscribe({
+                next: (response: string) => {
+                    alert(`Xóa thành công ${name}`);
+                    this.getAllProducts();
+                },
+                complete: () => {},
+                error: (error: any) => {
+                    debugger;
+                    alert(`Xóa không thành công ${error.error.message}`);
+                },
+            });
+        }
     }
 
     onClickGoPage() {

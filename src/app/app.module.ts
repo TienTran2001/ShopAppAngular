@@ -12,6 +12,7 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { TokenInterceptor } from './interceptors/token.interceptor';
 import { ProductsComponent } from './admin/components/products/products.component';
 import { ProductsComponent as ProductsDashboardComponent } from './admin/components/products/products.component';
+import { AddProductComponent } from './admin/components/add-product/add-product.component';
 
 const routes: Routes = [
     { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -25,6 +26,10 @@ const routes: Routes = [
                 path: 'products',
                 component: ProductsDashboardComponent,
             },
+            {
+                path: 'add-product',
+                component: AddProductComponent,
+            },
         ],
     },
 ];
@@ -37,6 +42,7 @@ const routes: Routes = [
         DashboardComponent,
         ProductsComponent,
         ProductsDashboardComponent,
+        AddProductComponent,
     ],
     imports: [
         BrowserModule,
