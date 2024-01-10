@@ -9,12 +9,14 @@ import { productDTO } from '../dtos/product.dto';
 })
 export class ProductService {
     private apiBaseUrl = environment.apiBaseUrl;
+    keyword: string = '';
     constructor(private http: HttpClient) {}
 
-    getProducts(page: number, limit: number): Observable<any> {
+    getProducts(page: number, limit: number, keyword: string): Observable<any> {
         const params = {
             page: page.toString(),
             limit: limit.toString(),
+            keyword,
         };
 
         return this.http.get<any[]>(`${this.apiBaseUrl}/products`, { params });

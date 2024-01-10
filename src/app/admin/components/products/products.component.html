@@ -1,180 +1,228 @@
-<button
-    routerLink="/dashboard/add-product"
-    class="flex items-center bg-gray-200 hover:bg-[#607d8b1a] transition-all rounded-lg p-2 text-blue-700 mb-10"
->
-    <svg
-        xmlns="http://www.w3.org/2000/svg"
-        fill="none"
-        viewBox="0 0 24 24"
-        stroke-width="1.5"
-        stroke="currentColor"
-        class="w-5 h-5"
+<div class="flex justify-between mb-10">
+    <button
+        routerLink="/dashboard/add-product"
+        class="flex items-center bg-gray-200 hover:bg-[#607d8b1a] transition-all rounded-lg p-2 text-blue-700"
     >
-        <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            d="M12 9v6m3-3H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
-        />
-    </svg>
-
-    <span class="ml-1 font-semibold"> Thêm mới sản phẩm </span>
-</button>
-<div class="relative overflow-x-auto shadow-md sm:rounded-lg">
-    <table
-        class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400"
-    >
-        <thead
-            class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400"
+        <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke-width="1.5"
+            stroke="currentColor"
+            class="w-5 h-5"
         >
-            <tr>
-                <th scope="col" class="w-[5%] px-6 py-3">STT</th>
-                <th scope="col" class="px-6 py-3">Tên sản phẩm</th>
-                <th scope="col" class="px-6 py-3">Mô tả</th>
-                <th scope="col" class="px-6 py-3">Giá</th>
-                <th scope="col" class="px-6 py-3">Ảnh</th>
-                <th scope="col" class="px-6 py-3">Chỉnh sửa</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr
-                class="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700"
-                *ngFor="let product of products; let i = index"
-            >
-                <th
-                    scope="row"
-                    class="w-[5%] px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
-                >
-                    {{ i + 1 + limit * (page - 1) }}
-                </th>
-                <th
-                    scope="row"
-                    class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
-                >
-                    {{ product.name }}
-                </th>
-                <td class="px-6 py-4 truncate">{{ product.description }}</td>
-                <td class="px-6 py-4">{{ product.price }}đ</td>
-                <td class="px-6 py-4">{{ product.thumbnail }}</td>
-                <td class="px-6 py-4 flex items-center justify-center gap-x-2">
-                    <!-- update button product -->
-                    <button
-                        (click)="goToEditProduct(product.id)"
-                        class="flex items-center hover:bg-[#607d8b1a] transition-all rounded-lg p-2 text-[#607d8b]"
-                    >
-                        <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            viewBox="0 0 24 24"
-                            fill="currentColor"
-                            class="w-5 h-5"
-                        >
-                            <path
-                                d="M21.731 2.269a2.625 2.625 0 0 0-3.712 0l-1.157 1.157 3.712 3.712 1.157-1.157a2.625 2.625 0 0 0 0-3.712ZM19.513 8.199l-3.712-3.712-8.4 8.4a5.25 5.25 0 0 0-1.32 2.214l-.8 2.685a.75.75 0 0 0 .933.933l2.685-.8a5.25 5.25 0 0 0 2.214-1.32l8.4-8.4Z"
-                            />
-                            <path
-                                d="M5.25 5.25a3 3 0 0 0-3 3v10.5a3 3 0 0 0 3 3h10.5a3 3 0 0 0 3-3V13.5a.75.75 0 0 0-1.5 0v5.25a1.5 1.5 0 0 1-1.5 1.5H5.25a1.5 1.5 0 0 1-1.5-1.5V8.25a1.5 1.5 0 0 1 1.5-1.5h5.25a.75.75 0 0 0 0-1.5H5.25Z"
-                            />
-                        </svg>
-                    </button>
-                    <!-- delete product button -->
-                    <button
-                        (click)="handleDelete(product.id, product.name)"
-                        class="flex items-center hover:bg-[#607d8b1a] transition-all rounded-lg p-2 text-[#607d8b]"
-                    >
-                        <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            fill="none"
-                            viewBox="0 0 24 24"
-                            stroke-width="1.5"
-                            stroke="currentColor"
-                            class="w-5 h-5"
-                        >
-                            <path
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
-                                d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0"
-                            />
-                        </svg>
-                    </button>
-                </td>
-            </tr>
-        </tbody>
-    </table>
+            <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M12 9v6m3-3H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
+            />
+        </svg>
+
+        <span class="ml-1 font-semibold"> Thêm mới sản phẩm </span>
+    </button>
+
+    <div class="mr-auto md:mr-4 md:w-56">
+        <div class="relative w-full min-w-[200px] h-10">
+            <input
+                [(ngModel)]="keyword"
+                (keyup.enter)="onEnterKeyPress($event)"
+                class="w-full h-full bg-transparent text-[#263238] font-sans font-normal transition-all border border-[#b0bec5] focus:border-2 focus:border-t-transparent text-sm px-3 py-2.5 rounded-[7px] border-blue-gray-200 focus:border-gray-900"
+                placeholder="Tìm kiếm..."
+            />
+        </div>
+    </div>
 </div>
-<ul class="flex items-center -space-x-px h-8 text-sm justify-center mt-10">
-    <li>
-        <button
-            (click)="onPreviousPage()"
-            class="flex items-center justify-center px-3 h-8 ms-0 leading-tight text-gray-500 bg-white border border-e-0 border-gray-300 rounded-s-lg hover:bg-gray-100 hover:text-gray-700"
+<div *ngIf="showKeyword != ''" class="mb-4 font-semibold">
+    Tìm kiếm cho từ khóa:
+    <span class="italic text-blue-700">{{ showKeyword }}</span>
+</div>
+<div *ngIf="!loading">
+    <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+        <table
+            class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400"
         >
-            <span class="sr-only">Previous</span>
+            <thead
+                class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400"
+            >
+                <tr>
+                    <th scope="col" class="w-[5%] px-6 py-3">STT</th>
+                    <th scope="col" class="px-6 py-3">Tên sản phẩm</th>
+                    <th scope="col" class="px-6 py-3">Mô tả</th>
+                    <th scope="col" class="px-6 py-3">Giá</th>
+                    <th scope="col" class="px-6 py-3">Ảnh</th>
+                    <th scope="col" class="px-6 py-3">Chỉnh sửa</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr
+                    class="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700"
+                    *ngFor="let product of products; let i = index"
+                >
+                    <th
+                        scope="row"
+                        class="w-[5%] px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                    >
+                        {{ i + 1 + limit * (page - 1) }}
+                    </th>
+                    <th
+                        scope="row"
+                        class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                    >
+                        {{ product.name }}
+                    </th>
+                    <td class="px-6 py-4 truncate">
+                        {{ product.description }}
+                    </td>
+                    <td class="px-6 py-4">{{ product.price }}đ</td>
+                    <td class="px-6 py-4">{{ product.thumbnail }}</td>
+                    <td
+                        class="px-6 py-4 flex items-center justify-center gap-x-2"
+                    >
+                        <!-- update button product -->
+                        <button
+                            (click)="goToEditProduct(product.id)"
+                            class="flex items-center hover:bg-[#607d8b1a] transition-all rounded-lg p-2 text-[#607d8b]"
+                        >
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                viewBox="0 0 24 24"
+                                fill="currentColor"
+                                class="w-5 h-5"
+                            >
+                                <path
+                                    d="M21.731 2.269a2.625 2.625 0 0 0-3.712 0l-1.157 1.157 3.712 3.712 1.157-1.157a2.625 2.625 0 0 0 0-3.712ZM19.513 8.199l-3.712-3.712-8.4 8.4a5.25 5.25 0 0 0-1.32 2.214l-.8 2.685a.75.75 0 0 0 .933.933l2.685-.8a5.25 5.25 0 0 0 2.214-1.32l8.4-8.4Z"
+                                />
+                                <path
+                                    d="M5.25 5.25a3 3 0 0 0-3 3v10.5a3 3 0 0 0 3 3h10.5a3 3 0 0 0 3-3V13.5a.75.75 0 0 0-1.5 0v5.25a1.5 1.5 0 0 1-1.5 1.5H5.25a1.5 1.5 0 0 1-1.5-1.5V8.25a1.5 1.5 0 0 1 1.5-1.5h5.25a.75.75 0 0 0 0-1.5H5.25Z"
+                                />
+                            </svg>
+                        </button>
+                        <!-- delete product button -->
+                        <button
+                            (click)="handleDelete(product.id, product.name)"
+                            class="flex items-center hover:bg-[#607d8b1a] transition-all rounded-lg p-2 text-[#607d8b]"
+                        >
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                fill="none"
+                                viewBox="0 0 24 24"
+                                stroke-width="1.5"
+                                stroke="currentColor"
+                                class="w-5 h-5"
+                            >
+                                <path
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                    d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0"
+                                />
+                            </svg>
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <ul class="flex items-center -space-x-px h-8 text-sm justify-center mt-10">
+        <li>
+            <button
+                (click)="onPreviousPage()"
+                class="flex items-center justify-center px-3 h-8 ms-0 leading-tight text-gray-500 bg-white border border-e-0 border-gray-300 rounded-s-lg hover:bg-gray-100 hover:text-gray-700"
+            >
+                <span class="sr-only">Previous</span>
+                <svg
+                    class="w-2.5 h-2.5 rtl:rotate-180"
+                    aria-hidden="true"
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 6 10"
+                >
+                    <path
+                        stroke="currentColor"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M5 1 1 5l4 4"
+                    />
+                </svg>
+            </button>
+        </li>
+        <li>
+            <input
+                type="number"
+                min="1"
+                max="{{ totalPage }}"
+                placeholder="1"
+                value="{{ this.page }}"
+                [(ngModel)]="inputPage"
+                (input)="handleInputPage()"
+                class="w-[60px] px-1 flex items-center justify-center h-8 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 outline-none"
+            />
+        </li>
+        <li>
+            <button
+                readonly
+                class="cursor-auto flex items-center justify-center px-3 h-8 leading-tight border border-gray-300 text-gray-700"
+            >
+                {{ totalPage }}
+            </button>
+        </li>
+
+        <li>
+            <button
+                (click)="onClickGoPage()"
+                class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 border border-gray-300 hover:bg-gray-100 hover:text-gray-700"
+            >
+                Đi
+            </button>
+        </li>
+
+        <li>
+            <button
+                (click)="onNextPage()"
+                class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 rounded-e-lg hover:bg-gray-100 hover:text-gray-700"
+            >
+                <span class="sr-only">Next</span>
+                <svg
+                    class="w-2.5 h-2.5 rtl:rotate-180"
+                    aria-hidden="true"
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 6 10"
+                >
+                    <path
+                        stroke="currentColor"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="m1 9 4-4-4-4"
+                    />
+                </svg>
+            </button>
+        </li>
+    </ul>
+</div>
+<!-- loading -->
+<div *ngIf="loading" class="mt-[8rem]">
+    <div class="text-center">
+        <div role="status">
             <svg
-                class="w-2.5 h-2.5 rtl:rotate-180"
                 aria-hidden="true"
-                xmlns="http://www.w3.org/2000/svg"
+                class="inline w-6 h-6 text-gray-200 animate-spin fill-gray-900"
+                viewBox="0 0 100 101"
                 fill="none"
-                viewBox="0 0 6 10"
+                xmlns="http://www.w3.org/2000/svg"
             >
                 <path
-                    stroke="currentColor"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M5 1 1 5l4 4"
+                    d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z"
+                    fill="currentColor"
                 />
-            </svg>
-        </button>
-    </li>
-    <li>
-        <input
-            type="number"
-            min="1"
-            max="{{ totalPage }}"
-            placeholder="1"
-            value="{{ this.page }}"
-            [(ngModel)]="inputPage"
-            (input)="handleInputPage()"
-            class="w-[60px] px-1 flex items-center justify-center h-8 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 outline-none"
-        />
-    </li>
-    <li>
-        <button
-            readonly
-            class="cursor-auto flex items-center justify-center px-3 h-8 leading-tight border border-gray-300 text-gray-700"
-        >
-            {{ totalPage }}
-        </button>
-    </li>
-
-    <li>
-        <button
-            (click)="onClickGoPage()"
-            class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 border border-gray-300 hover:bg-gray-100 hover:text-gray-700"
-        >
-            Đi
-        </button>
-    </li>
-
-    <li>
-        <button
-            (click)="onNextPage()"
-            class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 rounded-e-lg hover:bg-gray-100 hover:text-gray-700"
-        >
-            <span class="sr-only">Next</span>
-            <svg
-                class="w-2.5 h-2.5 rtl:rotate-180"
-                aria-hidden="true"
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 6 10"
-            >
                 <path
-                    stroke="currentColor"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="m1 9 4-4-4-4"
+                    d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z"
+                    fill="currentFill"
                 />
             </svg>
-        </button>
-    </li>
-</ul>
+            <span class="sr-only">Loading...</span>
+        </div>
+    </div>
+</div>

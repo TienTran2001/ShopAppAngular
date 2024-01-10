@@ -3,6 +3,7 @@ import { UserResponse } from '../responses/user.response';
 import { UserService } from '../services/user.service';
 import { TokenService } from '../services/token.service';
 import { Router } from '@angular/router';
+import { ProductService } from '../services/product.service';
 
 @Component({
     selector: 'app-dashboard',
@@ -12,6 +13,7 @@ import { Router } from '@angular/router';
 export class DashboardComponent {
     userResponse?: UserResponse | null;
     page = 'Trang chủ';
+
     menuBar = [
         { name: 'Trang chủ', link: '/dashboard/', icon: '' },
         { name: 'Sản phẩm', link: '/dashboard/products', icon: '' },

@@ -1,6 +1,12 @@
-import { Component } from '@angular/core';
+import {
+    ChangeDetectorRef,
+    Component,
+    Input,
+    OnChanges,
+    SimpleChanges,
+} from '@angular/core';
 import { ProductService } from '../../../services/product.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
     selector: 'app-products',
@@ -14,28 +20,41 @@ export class ProductsComponent {
     limit: number = 8;
     totalPage: number = 0;
 
+    keyword: string = '';
+    showKeyword: string = '';
+    loading: boolean = true;
+
     constructor(
         private productService: ProductService,
         private router: Router
-    ) {}
+    ) {
+        console.log('vào contructowr');
+    }
 
     ngOnInit() {
         this.getAllProducts();
     }
 
     getAllProducts() {
-        console.log('vao ne');
-        this.productService.getProducts(this.page - 1, this.limit).subscribe({
-            next: (response: any) => {
-                this.products = response.products;
-                this.totalPage = response.totalPage;
-                console.log(this.products);
-            },
-            complete: () => {},
-            error: (error: any) => {
-                console.log('llll');
-            },
-        });
+        this.productService
+            .getProducts(this.page - 1, this.limit, this.keyword)
+            .subscribe({
+                next: (response: any) => {
+                    this.products = response.products;
+                    this.totalPage = response.totalPage;
+                },
+                complete: () => {
+                    this.loading = false;
+                },
+                error: (error: any) => {
+                    console.log('llll');
+                },
+            });
+    }
+
+    onEnterKeyPress(event: any) {
+        this.showKeyword = this.keyword;
+        this.getAllProducts();
     }
 
     handleInputPage() {
@@ -63,32 +82,33 @@ export class ProductsComponent {
     }
 
     onClickGoPage() {
-        if (this.page != this.inputPage)
+        if (this.page != this.inputPage) {
+            this.loading = true;
             this.productService
-                .getProducts(this.inputPage, this.limit)
+                .getProducts(this.inputPage, this.limit, this.keyword)
                 .subscribe({
                     next: (response: any) => {
                         this.products = response.products;
                         this.page = this.inputPage;
-                        console.log(this.page);
+                        this.loading = false;
                     },
                     complete: () => {},
                     error: (error: any) => {
                         console.log('llll');
                     },
                 });
+        }
     }
 
     onPreviousPage() {
         if (this.page > 1) {
             this.page = this.page - 1;
+
             this.productService
-                .getProducts(this.page - 1, this.limit)
+                .getProducts(this.page - 1, this.limit, this.keyword)
                 .subscribe({
                     next: (response: any) => {
                         this.products = response.products;
-
-                        console.log(this.page);
                     },
                     complete: () => {},
                     error: (error: any) => {
@@ -102,12 +122,10 @@ export class ProductsComponent {
         if (this.page < this.totalPage) {
             this.page = this.page + 1;
             this.productService
-                .getProducts(this.page - 1, this.limit)
+                .getProducts(this.page - 1, this.limit, this.keyword)
                 .subscribe({
                     next: (response: any) => {
                         this.products = response.products;
-
-                        console.log(this.page);
                     },
                     complete: () => {},
                     error: (error: any) => {
